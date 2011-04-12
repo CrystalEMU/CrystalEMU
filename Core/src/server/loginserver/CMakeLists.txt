@@ -102,10 +102,10 @@ endif()
 if( UNIX )
   install(TARGETS loginserver DESTINATION bin)
   install(FILES run-login DESTINATION bin)
-  install(FILES  loginserver.conf.dist DESTINATION bin/Configs)
+  install(FILES  loginserver.conf.dist DESTINATION etc)
 elseif( WIN32 )
   install(TARGETS loginserver DESTINATION "${CMAKE_INSTALL_PREFIX}")
-  install(FILES loginserver.conf.dist DESTINATION "${CMAKE_INSTALL_PREFIX}"/Configs)
+  install(FILES loginserver.conf.dist DESTINATION "${CMAKE_INSTALL_PREFIX}")
 endif()
 
 # Generate precompiled header

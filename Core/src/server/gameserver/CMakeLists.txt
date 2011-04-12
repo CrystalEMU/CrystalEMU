@@ -186,10 +186,10 @@ endif()
 if( UNIX )
   install(TARGETS gameserver DESTINATION bin)
   install(FILES run-game DESTINATION bin)
-  install(FILES gameserver.conf.dist DESTINATION etc/Configs)
+  install(FILES gameserver.conf.dist DESTINATION etc)
 elseif( WIN32 )
   install(TARGETS gameserver DESTINATION "${CMAKE_INSTALL_PREFIX}")
-  install(FILES gameserver.conf.dist DESTINATION "${CMAKE_INSTALL_PREFIX}"/Configs)
+  install(FILES gameserver.conf.dist DESTINATION "${CMAKE_INSTALL_PREFIX}")
 endif()
 
 # Generate precompiled header
