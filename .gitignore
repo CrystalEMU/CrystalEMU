@@ -8,6 +8,6 @@ build/
 *.kdev*
 *.bak
 *.patch
-/Core/sql/old
+sql/old
 *.diff
 anticheat.sql
