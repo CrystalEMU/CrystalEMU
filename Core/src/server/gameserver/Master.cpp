@@ -49,8 +49,8 @@
 extern int m_ServiceStatus;
 #endif
 
-/// Handle cored's termination signals
-class CoredSignalHandler : public Trinity::SignalHandler
+/// Handle worldservers's termination signals
+class WorldServerSignalHandler : public Trinity::SignalHandler
 {
     public:
         virtual void HandleSignal(int SigNum)
@@ -123,10 +123,10 @@ int Master::Run()
     BigNumber seed1;
     seed1.SetRand(16 * 8);
 
-    sLog->outString("%s (realm-daemon)", _FULLVERSION);
+    sLog->outString("%s (gameserver-daemon)", _FULLVERSION);
     sLog->outString("<Ctrl-C> to stop.\n");
-	sLog->outString("www.|)estiny-pr0jcts.tk");
 
+	sLog->outString("http://www.destiny-pr0jcts.tk")
 #ifdef USE_SFMT_FOR_RNG
     sLog->outString("\n");
     sLog->outString("SFMT has been enabled as the random number generator, if worldserver");
@@ -134,7 +134,7 @@ int Master::Run()
     sLog->outString("\n");
 #endif //USE_SFMT_FOR_RNG
 
-    /// worldd PID file creation
+    /// worldserver PID file creation
     std::string pidfile = sConfig->GetStringDefault("PidFile", "");
     if (!pidfile.empty())
     {
@@ -159,12 +159,12 @@ int Master::Run()
     sWorld->SetInitialWorldSettings();
 
     // Initialise the signal handlers
-    CoredSignalHandler SignalINT, SignalTERM;
+    WorldServerSignalHandler SignalINT, SignalTERM;
     #ifdef _WIN32
-    CoredSignalHandler SignalBREAK;
+    WorldServerSignalHandler SignalBREAK;
     #endif /* _WIN32 */
 
-    // Register core's signal handlers
+    // Register worldserver's signal handlers
     ACE_Sig_Handler Handler;
     Handler.register_handler(SIGINT, &SignalINT);
     Handler.register_handler(SIGTERM, &SignalTERM);
@@ -207,11 +207,11 @@ int Master::Run()
 
                 if (!curAff)
                 {
-                    sLog->outError("Processors marked in UseProcessors bitmask (hex) %x not accessible for Trinityd. Accessible processors bitmask (hex): %x", Aff, appAff);
+                    sLog->outError("Processors marked in UseProcessors bitmask (hex) %x are not accessible for the worldserver. Accessible processors bitmask (hex): %x", Aff, appAff);
                 }
                 else
                 {
-                    if (SetProcessAffinityMask(hProcess,curAff))
+                    if (SetProcessAffinityMask(hProcess, curAff))
                         sLog->outString("Using processors (bitmask, hex): %x", curAff);
                     else
                         sLog->outError("Can't set used processors (hex): %x", curAff);
@@ -226,9 +226,9 @@ int Master::Run()
         if (Prio)
         {
             if (SetPriorityClass(hProcess, HIGH_PRIORITY_CLASS))
-                sLog->outString("DestinyCore process priority class set to HIGH");
+                sLog->outString("worldserver process priority class set to HIGH");
             else
-                sLog->outError("Can't set Trinityd process priority class.");
+                sLog->outError("Can't set worldserver process priority class.");
             sLog->outString("");
         }
     }

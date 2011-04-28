@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 Trinity <http://www.trinitycore.org/>
+# Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -101,8 +101,8 @@ endif()
 
 if( UNIX )
   install(TARGETS loginserver DESTINATION bin)
+  install(FILES loginserver.conf.dist DESTINATION etc)
   install(FILES run-login DESTINATION bin)
-  install(FILES  loginserver.conf.dist DESTINATION etc)
 elseif( WIN32 )
   install(TARGETS loginserver DESTINATION "${CMAKE_INSTALL_PREFIX}")
   install(FILES loginserver.conf.dist DESTINATION "${CMAKE_INSTALL_PREFIX}")

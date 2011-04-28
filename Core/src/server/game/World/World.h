@@ -27,7 +27,6 @@
 #include "Timer.h"
 #include <ace/Singleton.h>
 #include "SharedDefines.h"
-#include <ace/Atomic_Op.h>
 #include "QueryResult.h"
 #include "Callback.h"
 
@@ -39,7 +38,6 @@ class Object;
 class WorldPacket;
 class WorldSession;
 class Player;
-struct ScriptInfo;
 class WorldSocket;
 class SystemMgr;
 
@@ -701,11 +699,6 @@ class World
         BanReturn BanCharacter(std::string name, std::string duration, std::string reason, std::string author);
         bool RemoveBanCharacter(std::string name);
 
-        uint32 IncreaseScheduledScriptsCount() { return (uint32)++m_scheduledScripts; }
-        uint32 DecreaseScheduledScriptCount() { return (uint32)--m_scheduledScripts; }
-        uint32 DecreaseScheduledScriptCount(size_t count) { return (uint32)(m_scheduledScripts -= count); }
-        bool IsScriptScheduled() const { return m_scheduledScripts > 0; }
-
         // for max speed access
         static float GetMaxVisibleDistanceOnContinents()    { return m_MaxVisibleDistanceOnContinents; }
         static float GetMaxVisibleDistanceInInstances()     { return m_MaxVisibleDistanceInInstances;  }
@@ -746,7 +739,7 @@ class World
     protected:
         void _UpdateGameTime();
         // callback for UpdateRealmCharacters
-        void _UpdateRealmCharCount(QueryResult resultCharCount, uint32 accountId);
+        void _UpdateRealmCharCount(PreparedQueryResult resultCharCount);
 
         void InitDailyQuestResetTime();
         void InitWeeklyQuestResetTime();
@@ -763,9 +756,6 @@ class World
         uint32 m_CleaningFlags;
 
         bool m_isClosed;
-
-        //atomic op counter for active scripts amount
-        ACE_Atomic_Op<ACE_Thread_Mutex, long> m_scheduledScripts;
 
         time_t m_startTime;
         time_t m_gameTime;
@@ -833,7 +823,7 @@ class World
 
     private:
         void ProcessQueryCallbacks();
-        QueryCallback<QueryResult, uint32> m_realmCharCallback;
+        ACE_Future_Set<PreparedQueryResult> m_realmCharCallbacks;
 };
 
 extern uint32 realmID;

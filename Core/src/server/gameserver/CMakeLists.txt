@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 Trinity <http://www.trinitycore.org/>
+# Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -185,8 +185,8 @@ endif()
 
 if( UNIX )
   install(TARGETS gameserver DESTINATION bin)
-  install(FILES run-game DESTINATION bin)
   install(FILES gameserver.conf.dist DESTINATION etc)
+  install(FILES run-game DESTINATION bin)
 elseif( WIN32 )
   install(TARGETS gameserver DESTINATION "${CMAKE_INSTALL_PREFIX}")
   install(FILES gameserver.conf.dist DESTINATION "${CMAKE_INSTALL_PREFIX}")
