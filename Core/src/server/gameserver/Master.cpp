@@ -126,7 +126,7 @@ int Master::Run()
     sLog->outString("%s (gameserver-daemon)", _FULLVERSION);
     sLog->outString("<Ctrl-C> to stop.\n");
 
-	sLog->outString("http://www.destiny-pr0jcts.tk")
+	sLog->outString("http://www.destiny-pr0jcts.tk");
 #ifdef USE_SFMT_FOR_RNG
     sLog->outString("\n");
     sLog->outString("SFMT has been enabled as the random number generator, if worldserver");
