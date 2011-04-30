@@ -37,7 +37,7 @@
 // |color|Hquest:quest_id:quest_level|h[name]|h|r                         - client, quest list name shift-click
 // |color|Hskill:skill_id|h[name]|h|r
 // |color|Hspell:spell_id|h[name]|h|r                                     - client, spellbook spell icon shift-click
-// |color|Htalent:talent_id,rank|h[name]|h|r                              - client, talent icon shift-click
+// |color|Htalent:talent_id, rank|h[name]|h|r                              - client, talent icon shift-click
 // |color|Htaxinode:id|h[name]|h|r
 // |color|Htele:id|h[name]|h|r
 // |color|Htitle:id|h[name]|h|r
@@ -111,7 +111,7 @@ bool ItemChatLink::Initialize(std::istringstream& iss)
         return false;
     }
     // Validate item
-    _item = ObjectMgr::GetItemPrototype(itemEntry);
+    _item = sObjectMgr->GetItemTemplate(itemEntry);
     if (!_item)
     {
         sLog->outDebug(LOG_FILTER_CHATSYS, "ChatHandler::isValidChatMessage('%s'): got invalid itemEntry %u in |item command", iss.str().c_str(), itemEntry);

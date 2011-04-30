@@ -34,7 +34,7 @@
 #include "RealmAcceptor.h"
 
 #ifndef _TRINITY_REALM_CONFIG
-# define _TRINITY_REALM_CONFIG  "authserver.conf"
+# define _TRINITY_REALM_CONFIG  "loginserver.conf"
 #endif
 
 bool StartDB();
@@ -99,7 +99,7 @@ extern int main(int argc, char **argv)
     }
     sLog->Initialize();
 
-    sLog->outString("%s (loginserver)", _FULLVERSION);
+    sLog->outString("%s (lgoinserver)", _FULLVERSION);
     sLog->outString("<Ctrl-C> to stop.\n");
     sLog->outString("Using configuration file %s.", cfg_file);
 
@@ -177,13 +177,13 @@ extern int main(int argc, char **argv)
             ULONG_PTR appAff;
             ULONG_PTR sysAff;
 
-            if (GetProcessAffinityMask(hProcess,&appAff,&sysAff))
+            if (GetProcessAffinityMask(hProcess, &appAff, &sysAff))
             {
                 ULONG_PTR curAff = Aff & appAff;            // remove non accessible processors
 
                 if (!curAff)
                     sLog->outError("Processors marked in UseProcessors bitmask (hex) %x not accessible for authserver. Accessible processors bitmask (hex): %x", Aff, appAff);
-                else if (SetProcessAffinityMask(hProcess,curAff))
+                else if (SetProcessAffinityMask(hProcess, curAff))
                     sLog->outString("Using processors (bitmask, hex): %x", curAff);
                 else
                     sLog->outError("Can't set used processors (hex): %x", curAff);

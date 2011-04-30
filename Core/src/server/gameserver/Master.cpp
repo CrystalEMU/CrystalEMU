@@ -99,7 +99,7 @@ public:
                 w_loops = World::m_worldLoopCounter;
             }
             // possible freeze
-            else if (getMSTimeDiff(w_lastchange,curtime) > _delaytime)
+            else if (getMSTimeDiff(w_lastchange, curtime) > _delaytime)
             {
                 sLog->outError("World Thread hangs, kicking out server!");
                 ASSERT(false);
@@ -123,10 +123,11 @@ int Master::Run()
     BigNumber seed1;
     seed1.SetRand(16 * 8);
 
-    sLog->outString("%s (gameserver-daemon)", _FULLVERSION);
+    sLog->outString("%s (gameserver)", _FULLVERSION);
     sLog->outString("<Ctrl-C> to stop.\n");
+	sLog->outString("http://www.destiny-pr0jcts.tk/");
 
-	sLog->outString("http://www.destiny-pr0jcts.tk");
+
 #ifdef USE_SFMT_FOR_RNG
     sLog->outString("\n");
     sLog->outString("SFMT has been enabled as the random number generator, if worldserver");
@@ -447,7 +448,7 @@ bool Master::_StartDB()
     clearOnlineAccounts();
 
     ///- Insert version info into DB
-    WorldDatabase.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", _FULLVERSION, _REVISION);
+    WorldDatabase.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", _FULLVERSION, _HASH);
 
     sWorld->LoadDBVersion();
 

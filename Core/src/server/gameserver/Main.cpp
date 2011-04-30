@@ -32,7 +32,7 @@
 #include "Master.h"
 
 #ifndef _TRINITY_CORE_CONFIG
-# define _TRINITY_CORE_CONFIG  "worldserver.conf"
+# define _TRINITY_CORE_CONFIG  "gameserver.conf"
 #endif //_TRINITY_CORE_CONFIG
 
 #ifdef _WIN32
@@ -66,7 +66,7 @@ void usage(const char *prog)
         "    -s install               install service\n\r"
         "    -s uninstall             uninstall service\n\r"
         #endif
-        ,prog);
+        , prog);
 }
 
 /// Launch the Trinity server
